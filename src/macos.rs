@@ -1,8 +1,5 @@
 use crate::{get_stdout, run, Error::UnsupportedDesktop, Mode, Result};
 
-#[cfg(feature = "from_url")]
-use crate::download_image;
-
 /// Returns the current wallpaper.
 pub fn get() -> Result<String> {
     get_stdout(
@@ -26,13 +23,6 @@ pub fn set_from_path(path: &str) -> Result<()> {
             ),
         ],
     )
-}
-
-#[cfg(feature = "from_url")]
-// Sets the wallpaper from a URL.
-pub fn set_from_url(url: &str) -> Result<()> {
-    let path = download_image(url)?;
-    set_from_path(&path)
 }
 
 /// No-op. Unable to change with AppleScript.
