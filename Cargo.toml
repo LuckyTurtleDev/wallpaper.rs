@@ -1,14 +1,15 @@
+
 [package]
-name = "wallpaper"
-version = "3.2.0"
+name = "more-wallpapers-fallback"
+version = "4.0.0"
 edition = "2021"
-authors = ["reujab <reujab@gmail.com>"]
-description = "Gets and sets the desktop wallpaper/background."
-repository = "https://github.com/reujab/wallpaper.rs"
-readme = "readme.md"
-keywords = ["desktop", "wallpaper", "background"]
-categories = ["api-bindings"]
+description = "Private implementation detail of more-wallpapers"
+repository = "https://github.com/LuckyTurtleDev/wallpaper.rs"
+include = ["/src/**/*.rs", "/unlicense"]
 license = "Unlicense"
+
+[lib]
+name = "wallpaper"
 
 [dependencies]
 dirs = { version = "1", optional = true }
