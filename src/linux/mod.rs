@@ -63,7 +63,7 @@ pub fn set_from_path(path: &str) -> Result<()> {
             &[
                 "write",
                 "/org/mate/desktop/background/picture-filename",
-                &enquote::enquote('"', &path),
+                &enquote::enquote('"', path),
             ],
         ),
         "XFCE" => xfce::set(path),
@@ -77,7 +77,7 @@ pub fn set_from_path(path: &str) -> Result<()> {
             ],
         ),
         _ => {
-            if let Ok(mut child) = Command::new("swaybg").args(&["-i", path]).spawn() {
+            if let Ok(mut child) = Command::new("swaybg").args(["-i", path]).spawn() {
                 child.stdout = None;
                 child.stderr = None;
                 return Ok(());
