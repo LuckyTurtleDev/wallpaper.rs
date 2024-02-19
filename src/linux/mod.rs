@@ -1,7 +1,5 @@
 mod gnome;
-mod kde;
 mod lxde;
-pub(crate) mod xfce;
 
 use crate::{get_stdout, run, Error, Mode, Result};
 use std::{env, process::Command};
@@ -15,16 +13,10 @@ pub fn get() -> Result<String> {
     }
 
     match desktop.as_str() {
-        "KDE" => kde::get(),
-        "X-Cinnamon" => parse_dconf(
-            "dconf",
-            &["read", "/org/cinnamon/desktop/background/picture-uri"],
-        ),
         "MATE" => parse_dconf(
             "dconf",
             &["read", "/org/mate/desktop/background/picture-filename"],
         ),
-        "XFCE" => xfce::get(),
         "LXDE" => lxde::get(),
         "Deepin" => parse_dconf(
             "dconf",
@@ -46,7 +38,6 @@ pub fn set_from_path(path: &str) -> Result<()> {
     }
 
     match desktop.as_str() {
-        "KDE" => kde::set(path),
         "X-Cinnamon" => run(
             "dconf",
             &[
@@ -63,7 +54,6 @@ pub fn set_from_path(path: &str) -> Result<()> {
                 &enquote::enquote('"', path),
             ],
         ),
-        "XFCE" => xfce::set(path),
         "LXDE" => lxde::set(path),
         "Deepin" => run(
             "dconf",
@@ -94,7 +84,6 @@ pub fn set_mode(mode: Mode) -> Result<()> {
     }
 
     match desktop.as_str() {
-        "KDE" => kde::set_mode(mode),
         "X-Cinnamon" => run(
             "dconf",
             &[
@@ -111,7 +100,6 @@ pub fn set_mode(mode: Mode) -> Result<()> {
                 &mode.get_gnome_string(),
             ],
         ),
-        "XFCE" => xfce::set_mode(mode),
         "LXDE" => lxde::set_mode(mode),
         "Deepin" => run(
             "dconf",

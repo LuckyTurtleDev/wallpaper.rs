@@ -30,10 +30,6 @@ pub enum Error {
     #[error("No {0} image found")]
     NoImage(&'static str),
 
-    #[cfg(all(unix, not(target_os = "macos")))]
-    #[error("{0}")]
-    XfceNoDesktops(#[from] crate::linux::xfce::NoDesktopsError),
-
     #[error("Unsupported Desktop")]
     UnsupportedDesktop,
 }
